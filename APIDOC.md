@@ -105,7 +105,9 @@ The Air Fryer Recipe allows users to create a recipe/ update an existing recipe,
 
 **Example Response:**
 ```json
-{ message: 'Deleted recipe'}`
+{
+  "message": "Deleted recipe"
+}
 ```
 
 **Error Handling:**
