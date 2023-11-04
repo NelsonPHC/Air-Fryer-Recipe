@@ -1,5 +1,5 @@
 # Air Fryer Recipe API Documentation
-The Air Fryer Recipe allows users to create a recipe/ update an existing recipe, and search for a recipe if exists.
+The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes.
 
 ## Create a recipe
 **Request Format:** /recipes endpoint with POST parameters of `name`, `description`, `temperature`, `timer`, and `flip`
