@@ -27,9 +27,9 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 
 **Error Handling:**
 - Possible 400 (invalid request) errors (all plain text):
-  - If missing the recipe name, temperature, timer, or flip, an error is returned with the message: `{ message: "Missing required parameters"}`
+  - If missing the recipe name, temperature, timer, or flip, an error is returned with the message: `{ "message": "Missing required parameters"}`
 - Possible 500 errors (all plain text):
-  - If something else goes wrong on the server, returns an error with the message: `{ message: "Something went wrong. Please try again later."}`
+  - If something else goes wrong on the server, returns an error with the message: `{ "message": "Something went wrong. Please try again later."}`
 
 ## Search for a recipe
 **Request Format:** /recipes/:name
@@ -57,9 +57,9 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 
 **Error Handling:**
 - Possible 400 (invalid request) errors (all json):
-  - If cannot find the recipe for the given name, an error is returned with the message: `{ message: "Cannot find recipe"}`
+  - If cannot find the recipe for the given name, an error is returned with the message: `{ "message": "Cannot find recipe"}`
 - Possible 500 errors (all json):`
-  - If something else goes wrong on the server, returns an error with the message: `{ message: "something went wrong on the server"}`
+  - If something else goes wrong on the server, returns an error with the message: `{ "message": "something went wrong on the server"}`
 
 ## Update a recipe
 **Request Format:** /recipes endpoint with PATCH parameters of `name`, `description`, `temperature`, `timer`, and `flip`
@@ -87,9 +87,9 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 
 **Error Handling:**
 - Possible 400 (invalid request) errors (all plain text):
-  - If missing the recipe name, temperature, timer, or flip, an error is returned with the message: `{ message: "Missing required parameters"}`
+  - If missing the recipe name, temperature, timer, or flip, an error is returned with the message: `{ "message": "Missing required parameters"}`
 - Possible 500 errors (all plain text):
-  - If something else goes wrong on the server, returns an error with the message: `{ message: "Something went wrong. Please try again later."}`
+  - If something else goes wrong on the server, returns an error with the message: `{ "message": "Something went wrong. Please try again later."}`
 
 
 ## Delete a recipe
@@ -112,6 +112,6 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 
 **Error Handling:**
 - Possible 400 (invalid request) errors:
-  - If cannot find the recipe for the given name, an error is returned with the message: `{ message: "Cannot find recipe"}`
+  - If cannot find the recipe for the given name, an error is returned with the message: `{ "message": "Cannot find recipe"}`
 - Possible 500 errors (all plain text):
-  - If something else goes wrong on the server, returns an error with the message: `{ message: "Something went wrong. Please try again later."}`
+  - If something else goes wrong on the server, returns an error with the message: `{ "message": "Something went wrong. Please try again later."}`
