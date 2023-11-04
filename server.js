@@ -1,5 +1,5 @@
 'use strict';
-require('dotenv').config()
+require('dotenv').config();
 
 const express = require('express');
 const app = express();
@@ -19,7 +19,6 @@ app.use(multer().none()); // requires the "multer" module
 
 const recipesRouter = require('./routes/recipes');
 app.use('/recipes', recipesRouter);
-
 
 
 
