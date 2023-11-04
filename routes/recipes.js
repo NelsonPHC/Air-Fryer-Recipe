@@ -1,17 +1,8 @@
 const express = require('express');
-const app = express();
 
 const router = express.Router();
 const Recipe = require('../models/recipe');
 const multer = require('multer');
-
-// for application/x-www-form-urlencoded
-app.use(express.urlencoded({extended: true})); // built-in middleware
-// for application/json
-app.use(express.json()); // built-in middleware
-// for multipart/form-data (required with FormData)
-app.use(multer().none()); // requires the "multer" module
-
 
 // creating one
 router.post('/', async (req, res) => {
