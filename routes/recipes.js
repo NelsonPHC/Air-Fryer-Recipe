@@ -43,9 +43,9 @@ router.get('/:name', getRecipe(), (req, res) => {
 router.patch('/:name', getRecipe(), async (req, res) => {
   let recipe = res.recipe;
   let bod = req.body;
-  if (bod.description != null) recipe.description = bod.description;
-  if (bod.temperature != null) recipe.temperature = parseInt(bod.temperature);
-  if (bod.timer != null) recipe.timer = parseInt(bod.timer);
+  if (bod.description != null && bod.description != "") recipe.description = bod.description;
+  if (bod.temperature != null && bod.temperature != "") recipe.temperature = parseInt(bod.temperature);
+  if (bod.timer != null && bod.timer != "") recipe.timer = parseInt(bod.timer);
   if (bod.flip != null) recipe.flip = bod.flip;
 
   try {

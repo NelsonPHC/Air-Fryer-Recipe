@@ -1,5 +1,5 @@
 /*
- * This is the frontend JS for my recipe api.
+ * This is the frontend JS for my air fryer recipe page.
  * It handles form inputs (create, update, search, delete a recipe) and displays
  * the corresponding messages.
  * When a user searches an existing recipe, all the recipe details will be displayed on the page.
@@ -33,6 +33,11 @@
     id('create-form').addEventListener('submit', function(e) {
       e.preventDefault();
       createRequest();
+    });
+
+    id('update-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      updateRequest();
     });
   }
 
@@ -100,23 +105,38 @@
     id('recipe-display').innerHTML = '';
     id('recipe-display').classList.remove('hidden');
     let params = new FormData(id("delete-form")); // pass in entire form tag
-    fetch('/delete', {method: "POST", body: params})
+    let name = params.get('deletename');
+    fetch('/recipes/' + name, {method: "DELETE"})
       .then(statusCheck)
-      .then(resp => resp.text())
+      .then(resp => resp.json())
       .then(messageDisplay)
       .catch(handleError);
   }
 
   /**
-   * creates or updates a recipe
+   * creates a recipe
    */
   function createRequest() {
     id('recipe-display').innerHTML = '';
     id('recipe-display').classList.remove('hidden');
     let params = new FormData(id("create-form"));
-    fetch('/create_update', {method: "POST", body: params})
+    fetch('/recipes/', {method: "POST", body: params})
       .then(statusCheck)
-      .then(resp => resp.text())
+      .then(resp => resp.json())
+      .then(messageDisplay)
+      .catch(handleError);
+  }
+
+  /**
+   * updates a recipe
+   */
+   function updateRequest() {
+    id('recipe-display').innerHTML = '';
+    id('recipe-display').classList.remove('hidden');
+    let params = new FormData(id("update-form"));
+    fetch('/recipes/' + params.get('name'), {method: "PATCH", body: params})
+      .then(statusCheck)
+      .then(resp => resp.json())
       .then(messageDisplay)
       .catch(handleError);
   }
@@ -126,7 +146,7 @@
    * @param {string} response a message telling the user if the recipe is created/updated
    */
   function messageDisplay(response) {
-    appendElement('p', response);
+    appendElement('p', response.message);
   }
 
   /**
