@@ -84,10 +84,11 @@ async function recipeExist(req, res, next) {
 
 async function getRecipe(req, res, next) {
   let recipe;
+  let name = req.params.name;
   try {
-    recipe = await Recipe.findOne({ name: req.params.name});
+    recipe = await Recipe.findOne({ name: name});
     if (recipe == null) {
-      return res.status(404).json({ message: "Cannot find recipe"});
+      return res.status(404).json({ message: `Cannot find recipe for ${name}`});
     }
   } catch (err) {
     return res.status(500).json({ message: err.message});
