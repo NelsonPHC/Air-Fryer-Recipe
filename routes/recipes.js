@@ -60,21 +60,23 @@ router.patch('/:name', getRecipe(), async (req, res) => {
 router.delete('/:name', getRecipe(), async (req, res) => {
   try {
     await res.recipe.deleteOne();
-    res.json({ message: 'Deleted recipe for ' + req.params.name});
+    res.json({ message: `Deleted recipe for ${req.params.name}`});
   } catch (err) {
     res.status(500).json({ message: err.message});
   }
 })
 
 /**
- * middleware for getting recipe by name and error handling
- * @param {boolean} forCreate if the middleware is used for the CREATE endpoint
+ * middleware for getting recipe by name and error handling, such as
+ * 1. cannot create a recipe that already exist (avoiding duplicates)
+ * 2. cannot search/update/delete a recipe that does not exist
+ * @param {boolean} forCreate true if the middleware is used for the CREATE endpoint
  */
 function getRecipe(forCreate) { // wrap middleware for extra params
   return async (req, res, next) => {
 
     let recipe;
-    let name = req.params.name || req.body.name;
+    let name = req.params.name || req.body.name; // body read from CREATE
     try {
       recipe = await Recipe.findOne({ name: name});
       if (forCreate) {
