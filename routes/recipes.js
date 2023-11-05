@@ -17,7 +17,7 @@ router.post('/', recipeExist, async (req, res) => {
 
   try {
     const newRecipe = await recipe.save();
-    res.status(201).json(newRecipe);
+    res.status(201).json({ message: `Created recipe for ${newRecipe.name}`});
   } catch (err) {
     res.status(400).json({ message: err.message});
   }
@@ -50,7 +50,7 @@ router.patch('/:name', getRecipe, async (req, res) => {
 
   try {
     const updatedRecipe = await recipe.save();
-    res.json(updatedRecipe);
+    res.json({ message: `Updated recipe for ${updatedRecipe.name}`});
   } catch (err) {
     res.status(400).json({ message: err.message});
   }

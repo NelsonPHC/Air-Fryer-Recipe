@@ -16,12 +16,7 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 **Example Response:**
 ```json
 {
-  "chicken wing": {
-    "description": "This recipe puts frozen chicken wing straight to the air fryer unthawed.",
-    "temperature": 400,
-    "timer": 18,
-    "flip": "yes"
-  }
+  "message": "Created recipe for chicken wing"
 }
 ```
 
@@ -77,12 +72,7 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 **Example Response:**
 ```json
 {
-  "chicken wing": {
-    "description": "This recipe puts frozen chicken wing straight to the air fryer unthawed.",
-    "temperature": 400,
-    "timer": 18,
-    "flip": "yes"
-  }
+  "message": "Updated recipe for chicken wing"
 }
 ```
 
