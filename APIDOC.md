@@ -27,7 +27,8 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 
 **Error Handling:**
 - Possible 400 (invalid request) errors (all JSON):
-  - If missing the recipe name, temperature, timer, or flip, an error is returned with the message: `{ "message": "Missing required parameters"}`
+  - If missing the recipe name, temperature, timer, or flip, an error is returned with the message: `{ "message": "Recipe validation failed: name: Path ${variable_name} is required."}`
+  - If the recipe for the name already exists, an error is returned with the message: `{ "message": "Recipe for ${name} already exist."}`
 - Possible 500 errors (all JSON):
   - If something else goes wrong on the server, returns an error with the message: `{ "message": "Something went wrong. Please try again later."}`
 

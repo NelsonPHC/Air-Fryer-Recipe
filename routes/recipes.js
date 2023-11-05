@@ -5,13 +5,14 @@ const Recipe = require('../models/recipe');
 const multer = require('multer');
 
 // creating one
-router.post('/', async (req, res) => {
+router.post('/', recipeExist, async (req, res) => {
+  let bod = req.body;
   const recipe = new Recipe({
-    name: req.body.name,
-    description: req.body.description,
-    temperature: parseInt(req.body.temperature),
-    timer: parseInt(req.body.timer),
-    flip: req.body.flip
+    name: bod.name,
+    description: bod.description,
+    temperature: parseInt(bod.temperature),
+    timer: parseInt(bod.timer),
+    flip: bod.flip
   })
 
   try {
@@ -59,11 +60,27 @@ router.patch('/:name', getRecipe, async (req, res) => {
 router.delete('/:name', getRecipe, async (req, res) => {
   try {
     await res.recipe.deleteOne();
-    res.json({ message: 'Deleted recipe'});
+    res.json({ message: 'Deleted recipe for ' + req.params.name});
   } catch (err) {
     res.status(500).json({ message: err.message});
   }
 })
+
+async function recipeExist(req, res, next) {
+  let recipe;
+  let name = req.body.name;
+  try {
+    recipe = await Recipe.findOne({ name: name});
+    if (recipe !== null) {
+      return res.status(400).json({ message: `Recipe for ${name} already exist.`});
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message});
+  }
+
+  res.recipe = recipe;
+  next();
+}
 
 async function getRecipe(req, res, next) {
   let recipe;
