@@ -65,6 +65,10 @@ router.delete('/:name', getRecipe(), async (req, res) => {
   }
 })
 
+/**
+ * middleware for getting recipe by name and error handling
+ * @param {boolean} forCreate if the middleware is used for the CREATE endpoint
+ */
 function getRecipe(forCreate) { // wrap middleware for extra params
   return async (req, res, next) => {
 
