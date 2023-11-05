@@ -1,0 +1,67 @@
+/*
+ * This is the styles.css page for my air fryer recipe page. It defines the styles of the recipe page.
+ * This includes the colors and sizes of the forms and recipe display area, as well as the hide
+ * form feature when the user toggles among the different input forms.
+ */
+
+html {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-image: url("img/background.jpeg");
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#form-container, #recipe-display {
+  margin: auto;
+  padding: 20px;
+  width: 50%;
+  background-color: burlywood;
+  min-width: 400px;
+  border-radius: 1em;
+  opacity: 85%;
+}
+
+#recipe-display {
+  margin-top: 2%;
+  background-color: white;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body, button {
+  text-align: center;
+  font-style: italic;
+  font-family: cursive;
+}
+
+#create-form div, #update-form div, #search-form, #delete-form {
+  padding: 1%;
+}
+
+footer {
+  color: white;
+  opacity: 70%;
+  text-align: end;
+}
+
+h1 {
+  background-color: white;
+  opacity: 75%;
+}
+
+.hidden {
+  display: none;
+}
