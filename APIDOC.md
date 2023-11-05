@@ -58,7 +58,7 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 
 **Error Handling:**
 - Possible 400 (invalid request) errors (all JSON):
-  - If cannot find the recipe for the given name, an error is returned with the message: `{ "message": "Cannot find recipe"}`
+  - If cannot find the recipe for the given name, an error is returned with the message: `{ "message": "Cannot find recipe for ${name}"}`
 - Possible 500 errors (all JSON):`
   - If something else goes wrong on the server, returns an error with the message: `{ "message": "something went wrong on the server"}`
 
@@ -88,7 +88,7 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 
 **Error Handling:**
 - Possible 400 (invalid request) errors (all JSON):
-  - If missing the recipe name, temperature, timer, or flip, an error is returned with the message: `{ "message": "Missing required parameters"}`
+  - If cannot find the recipe for the given name, an error is returned with the message: `{ "message": "Cannot find recipe for ${name}"}`
 - Possible 500 errors (all JSON):
   - If something else goes wrong on the server, returns an error with the message: `{ "message": "Something went wrong. Please try again later."}`
 
@@ -107,12 +107,12 @@ The Air Fryer Recipe allows users to create/read/update/delete air fryer recipes
 **Example Response:**
 ```json
 {
-  "message": "Deleted recipe"
+  "message": "Deleted recipe for chicken wing"
 }
 ```
 
 **Error Handling:**
 - Possible 400 (invalid request) errors:
-  - If cannot find the recipe for the given name, an error is returned with the message: `{ "message": "Cannot find recipe"}`
+  - If cannot find the recipe for the given name, an error is returned with the message: `{ "message": "Cannot find recipe for ${name}"}`
 - Possible 500 errors (all JSON):
   - If something else goes wrong on the server, returns an error with the message: `{ "message": "Something went wrong. Please try again later."}`
