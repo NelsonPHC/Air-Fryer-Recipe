@@ -47,6 +47,10 @@ body, button {
   font-family: cursive;
 }
 
+#delete-btn {
+  background-color: red;
+}
+
 #create-form div, #update-form div, #search-form, #delete-form {
   padding: 1%;
 }
