@@ -1,11 +1,10 @@
 const express = require('express');
 
 const router = express.Router();
-const Recipe = require('../models/recipe');
-const multer = require('multer');
+const Recipe = require('../models/recipe'); // model
 
 // creating one
-router.post('/', recipeExist, async (req, res) => {
+router.post('/', getRecipe(true), async (req, res) => {
   let bod = req.body;
   const recipe = new Recipe({
     name: bod.name,
@@ -34,13 +33,13 @@ router.post('/', recipeExist, async (req, res) => {
 // })
 
 // getting one
-router.get('/:name', getRecipe, (req, res) => {
+router.get('/:name', getRecipe(), (req, res) => {
   res.json(res.recipe);
 })
 
 
 // updating one
-router.patch('/:name', getRecipe, async (req, res) => {
+router.patch('/:name', getRecipe(), async (req, res) => {
   let recipe = res.recipe;
   let bod = req.body;
   if (bod.description != null) recipe.description = bod.description;
@@ -57,7 +56,7 @@ router.patch('/:name', getRecipe, async (req, res) => {
 })
 
 // deleting one
-router.delete('/:name', getRecipe, async (req, res) => {
+router.delete('/:name', getRecipe(), async (req, res) => {
   try {
     await res.recipe.deleteOne();
     res.json({ message: 'Deleted recipe for ' + req.params.name});
@@ -66,37 +65,47 @@ router.delete('/:name', getRecipe, async (req, res) => {
   }
 })
 
-async function recipeExist(req, res, next) {
-  let recipe;
-  let name = req.body.name;
-  try {
-    recipe = await Recipe.findOne({ name: name});
-    if (recipe !== null) {
-      return res.status(400).json({ message: `Recipe for ${name} already exist.`});
-    }
-  } catch (err) {
-    return res.status(500).json({ message: err.message});
-  }
+function getRecipe(forCreate) { // wrap middleware for extra params
+  return async (req, res, next) => {
 
-  res.recipe = recipe;
-  next();
+    let recipe;
+    let name = req.params.name || req.body.name;
+    try {
+      recipe = await Recipe.findOne({ name: name});
+      if (forCreate) {
+        if (recipe !== null) {
+          return res.status(400).json({ message: `Recipe for ${name} already exist.`});
+        }
+      } else {
+        if (recipe == null) {
+          return res.status(404).json({ message: `Cannot find recipe for ${name}`});
+        }
+      }
+
+    } catch (err) {
+      return res.status(500).json({ message: err.message});
+    }
+
+    res.recipe = recipe;
+    next();
+  };
 }
 
-async function getRecipe(req, res, next) {
-  let recipe;
-  let name = req.params.name;
-  try {
-    recipe = await Recipe.findOne({ name: name});
-    if (recipe == null) {
-      return res.status(404).json({ message: `Cannot find recipe for ${name}`});
-    }
-  } catch (err) {
-    return res.status(500).json({ message: err.message});
-  }
+// async function getRecipe(req, res, next) {
+//   let recipe;
+//   let name = req.params.name;
+//   try {
+//     recipe = await Recipe.findOne({ name: name});
+//     if (recipe == null) {
+//       return res.status(404).json({ message: `Cannot find recipe for ${name}`});
+//     }
+//   } catch (err) {
+//     return res.status(500).json({ message: err.message});
+//   }
 
-  res.recipe = recipe;
-  next();
-}
+//   res.recipe = recipe;
+//   next();
+// }
 
 
 module.exports = router;
